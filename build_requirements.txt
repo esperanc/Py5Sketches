@@ -1,0 +1,11 @@
+# Dependencias do build_index.py (apenas para gerar a galeria; NAO sao usadas
+# em runtime pelos sketches no browser).
+#
+#   python3 -m venv .venv && source .venv/bin/activate
+#   pip install -r build_requirements.txt
+#   python -m playwright install chromium
+#   python build_index.py            # gera index.json + thumbs/
+#
+# Flags uteis: --no-thumbs (so texto), --only <sketch>, --settle <s>, --timeout <s>
+playwright
+pillow

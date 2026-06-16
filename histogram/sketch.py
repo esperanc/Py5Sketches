@@ -37,7 +37,8 @@ LUMA = np.array([0.2126, 0.7152, 0.0722])
 
 def preload():
     global images
-    images = {name: loadImage(f) for name, f in image_files.items()}
+    # Imagens carregadas da pasta image_convolution (sem copias locais).
+    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
 
 
 def setup():

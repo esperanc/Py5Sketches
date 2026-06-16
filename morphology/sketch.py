@@ -46,8 +46,9 @@ def make_shapes():
 
 def preload():
     global images
-    images = {"cameraman": loadImage("cameraman.bmp"),
-              "lenna": loadImage("lenna.bmp")}
+    # Imagens carregadas da pasta image_convolution (sem copias locais).
+    images = {"cameraman": loadImage("../image_convolution/cameraman.bmp"),
+              "lenna": loadImage("../image_convolution/lenna.bmp")}
 
 
 LUMA = np.array([0.2126, 0.7152, 0.0722])

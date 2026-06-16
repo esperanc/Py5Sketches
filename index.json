@@ -1,0 +1,134 @@
+[
+  {
+    "name": "adjustable_terrain",
+    "title": "Malha 3D interativa — N×M vértices em WEBGL.",
+    "description": "Malha 3D interativa — N×M vértices em WEBGL.\n\n  Arrastar esfera (vértice)  →  mover para cima/baixo (eixo Y mundial)\n  Arrastar área vazia        →  orbitar / zoom com orbitControl\n  +  /  -                    →  aumentar / reduzir resolução (passo 2)\n  R                          →  zerar todas as alturas\n  S                          →  suavizar um passo (Laplaciano)\n  W                          →  alternar sólido / arame\n  F                          →  alternar normais suaves / planas",
+    "thumb": "thumbs/adjustable_terrain.png"
+  },
+  {
+    "name": "bezier_surface",
+    "title": "Superfície Bézier de produto tensorial — graus ajustáveis via GUI.",
+    "description": "Superfície Bézier de produto tensorial — graus ajustáveis via GUI.\n\n  Arrastar esfera (ponto de controle) → mover no eixo Y\n  Arrastar área vazia                 → orbitar / zoom (orbitControl)\n  R                                   → zerar todas as alturas",
+    "thumb": "thumbs/bezier_surface.png"
+  },
+  {
+    "name": "bezier_surface_subdiv",
+    "title": "Superfície Bézier de produto tensorial — graus ajustáveis via GUI.",
+    "description": "Superfície Bézier de produto tensorial — graus ajustáveis via GUI.\nRenderização via subdivisão de de Casteljau.\n\n  Arrastar esfera (ponto de controle) → mover no eixo Y\n  Arrastar área vazia                 → orbitar / zoom (orbitControl)\n  R                                   → zerar todas as alturas",
+    "thumb": "thumbs/bezier_surface_subdiv.png"
+  },
+  {
+    "name": "dithering",
+    "title": "Dithering — reduz o numero de cores de uma imagem para uma PALETA fixa,",
+    "description": "Dithering — reduz o numero de cores de uma imagem para uma PALETA fixa,\nespalhando o erro de quantizacao para enganar o olho.\n\nMostra UM metodo por vez (seletor \"method\"):\n  - original\n  - ordered 4x4     (mascara de Bayer)              -> shader\n  - ordered 16x16   (mascara de Bayer)              -> shader\n  - blue noise      (textura de ruido azul)         -> shader, animavel\n  - IGN             (Interleaved Gradient Noise)     -> shader, animavel\n  - Floyd-Steinberg (difusao de erro, sequencial)    -> CPU\n\nSobre os dois ruidos que substituem o ruido branco:\n  * Blue noise: mesmo algoritmo dos ordered dithers, mas o limiar vem de uma\n    textura de ruido azul (energia nas altas frequencias, sem aglomerados de\n    baixa frequencia). O padrao e bem menos perceptivel que Bayer; e o padrao\n    moderno em tempo real e pode ser animado no tempo (casa com TAA).\n  * IGN (Jorge Jimenez): hash analitico, sem textura, baratissimo e com\n    qualidade proxima a blue noise.\n  A animacao temporal (checkbox) desloca o limiar a cada frame.\n\nPALETA (controle explicito, com amostras na legenda):\n  - \"P&B (1-bit)\"        : {preto, branco}\n  - \"Cinza (4 niveis)\"   : 4 tons de cinza\n  - \"Impressora 8 cores\" : {Branco, Preto, C, M, Y, R, G, B}  (modelo subtrativo)\n  - \"RGB (27 cores)\"     : cubo 3x3x3\nPaletas em tons de cinza ditheram a LUMINOSIDADE; as demais ditheram em RGB.\n\nFonte: gradientes procedurais ou fotos reais (lenna, baboon).",
+    "thumb": "thumbs/dithering.png"
+  },
+  {
+    "name": "fourier",
+    "title": "Transformada de Fourier 2D — visualizacao didatica.",
+    "description": "Transformada de Fourier 2D — visualizacao didatica.\n\nUm painel escolhe a imagem de teste (padroes sinteticos ou fotos reais). A FFT\n2D e mostrada em dois graficos: MAGNITUDE (escala log) e FASE. Ao lado, a\nimagem de entrada (intensidade). Cada grafico traz:\n  - eixos de frequencia normalizada fx, fy (ciclos/pixel), com 0 (DC) no centro\n    apos fftshift;\n  - uma barra de cores legendada com a escala usada.\n\nPadroes sinteticos ajudam a ler o espectro:\n  - sine H/V/diagonal : dois impulsos simetricos na direcao da frequencia\n  - stripes / checker : onda quadrada -> harmonicos\n  - disk              : aneis (padrao jinc)\n  - gaussian          : gaussiana (transformada de gaussiana)\n  - impulse           : delta -> espectro plano",
+    "thumb": "thumbs/fourier.png"
+  },
+  {
+    "name": "fourier_filter",
+    "title": "Filtragem no dominio da frequencia (Fourier).",
+    "description": "Filtragem no dominio da frequencia (Fourier).\n\nMostra, lado a lado:\n  - esquerda : imagem original (intensidade)\n  - centro   : magnitude do espectro JA filtrado, log|F . H|  (mostra quais\n               frequencias o filtro deixa passar)\n  - direita  : imagem reconstruida pela transformada inversa\n\nFiltros (mascara H aplicada ao espectro, com DC no centro):\n  - passa-baixa / passa-alta : raio de corte + tipo (ideal, gaussiano, butterworth)\n  - borramento gaussiano     : passa-baixa gaussiano (raio)\n  - passa-faixa / rejeita-faixa : anel gaussiano (centro, largura)\n  - nitidez (high-boost)     : H = 1 + ganho * passa-alta\n\nInterface: GuiBlock MESTRE escolhe imagem e filtro; cada filtro tem o seu\nGuiBlock de parametros (visibilidade alternada via display).",
+    "thumb": "thumbs/fourier_filter.png"
+  },
+  {
+    "name": "half_edge",
+    "title": "Estrutura de dados half-edge (DCEL) — visualização interativa.",
+    "description": "Estrutura de dados half-edge (DCEL) — visualização interativa.\n\n  GUI (esq.)        → sólido, circulador, e botões Next / Prev / Twin\n  N / P / T         → operadores next / prev / twin sobre a half-edge corrente\n  R                 → repõe a half-edge corrente\n  Arrastar          → orbit_control (orbitar / zoom)\n\nA half-edge corrente é desenhada como uma flecha vermelha. O circulador de\nface mostra o anel da face (ciano); o de vértice mostra as half-edges que\npartem do vértice (verde). Em malhas abertas as arestas de bordo são\ndestacadas a laranja e as half-edges de bordo aparecem tracejadas.",
+    "thumb": "thumbs/half_edge.png"
+  },
+  {
+    "name": "histogram",
+    "title": "Histogram / processamento de imagem ponto-a-ponto.",
+    "description": "Histogram / processamento de imagem ponto-a-ponto.\n\nDemonstra tres algoritmos classicos:\n  - Brilho e Contraste : out = (in - 0.5) * contraste + 0.5 + brilho\n  - Equalizacao de Histograma : remapeia os valores pela CDF do histograma\n  - Correcao Gama : out = in ** gama\n\nArquitetura de interface pedida:\n  * Um GuiBlock MESTRE escolhe a imagem de teste e o algoritmo.\n  * Cada algoritmo tem o SEU proprio GuiBlock com os parametros especificos.\n  * Ao trocar de algoritmo, mostramos/escondemos os GuiBlocks alterando a\n    propriedade `display` da div que contem cada um (block.div.style(\"display\", ...)).\n\nMostra, lado a lado, a imagem original e a processada, cada uma com o seu\nhistograma de luminosidade.",
+    "thumb": "thumbs/histogram.png"
+  },
+  {
+    "name": "image_convolution",
+    "title": "Demonstrates the application of 3x3 convolution kernels on assorted images.",
+    "description": "Demonstrates the application of 3x3 convolution kernels on assorted images.\nDisclaimer: All images were downloaded from \nhttps://www.hlevkin.com/hlevkin/TestImages/",
+    "thumb": "thumbs/image_convolution.png"
+  },
+  {
+    "name": "image_filters",
+    "title": "Image filters — variacao do image_convolution focada em operacoes COMPOSTAS,",
+    "description": "Image filters — variacao do image_convolution focada em operacoes COMPOSTAS,\nque exigem varias passadas (ping-pong de framebuffers na GPU).\n\nO shader filter.glsl implementa uma operacao por passada (COPY, GRAY, CONV3,\nBLUR1D, GRADMAG, NMS, THRESH, HYST, FINALIZE, COMBINE). Aqui em Python cada\nfiltro e montado encadeando essas passadas entre framebuffers de rascunho.\n\nCada filtro e descrito por uma lista de PASSOS nomeados. Para os filtros\nmulti-passo, um grupo de radio buttons (reconstruido ao trocar de filtro,\ndefault no ultimo passo) permite executar/exibir ate um passo intermediario.\nEx.: DoG -> [Gauss small, Gauss large, Combine].\n\nFiltros:\n  - grayscale\n  - gaussian blur     : blur separavel  (H, depois V)\n  - box blur 3x3      : convolucao unica\n  - sharpen           : convolucao unica\n  - unsharp masking   : blur (H, V) + combine (orig + amount*(orig-blur))\n  - sobel / prewitt   : magnitude do gradiente\n  - emboss            : convolucao unica\n  - DoG               : difference of gaussians (Gauss small, Gauss large, Combine)\n  - canny             : grayscale -> blur -> gradiente -> supressao nao-maxima ->\n                        duplo limiar -> histerese",
+    "thumb": "thumbs/image_filters.png"
+  },
+  {
+    "name": "marching_cubes",
+    "title": "Marching tetrahedra — extração de iso-superfícies de campos implícitos.",
+    "description": "Marching tetrahedra — extração de iso-superfícies de campos implícitos.\n\nEscolhe-se um campo escalar f(x,y,z) num «select» e a iso-superfície f = nível\né poligonizada, dividindo cada célula da grade de amostragem em 6 tetraedros\n(variante simplicial, sem ambiguidades, do marching cubes).\n\n  GUI (esq.)\n    campo       → função implícita a visualizar\n    resolução   → nº de células da grade por eixo (custo ∝ resolução³)\n    nível       → iso-valor; desloca a superfície para dentro/fora\n    faces/arame/caixa/normais → o que desenhar\n  Arrastar      → orbit_control (orbitar / zoom)\n\nA geometria é calculada em Python e guardada em buffers de GPU (p5.Geometry,\nvia build_geometry); só é recalculada quando campo, resolução ou nível mudam.",
+    "thumb": "thumbs/marching_cubes.png"
+  },
+  {
+    "name": "mesh_subdivision",
+    "title": "Subdivisão cumulativa de malhas sobre a estrutura half-edge.",
+    "description": "Subdivisão cumulativa de malhas sobre a estrutura half-edge.\n\nAplica-se um passo de Catmull-Clark, Doo-Sabin ou Loop sobre a malha\ncorrente — incluindo o resultado de outro algoritmo — clicando no botão\nrespetivo. «Limpar» volta ao sólido base; «Desfazer» remove o último passo.\n\nO slider «deslocamento» (t) calibra quanto os vértices são movidos no\npróximo passo: t=0 só refina a topologia (geometria intacta), t=1 é a regra\npadrão do algoritmo, t>1 exagera a suavização.\n\n  Botões (esq.) → solido, deslocamento, passos, exibição\n  Arrastar      → orbit_control (orbitar / zoom)",
+    "thumb": "thumbs/mesh_subdivision.png"
+  },
+  {
+    "name": "morphology",
+    "title": "Limiarizacao (threshold) + operacoes morfologicas.",
+    "description": "Limiarizacao (threshold) + operacoes morfologicas.\n\n  - Um slider 'limiar' separa a imagem (em tons de cinza) em duas classes.\n  - 'ruido' adiciona ruido branco antes da limiarizacao (gera respingos).\n  - Botoes aplicam morfologia a imagem binaria CORRENTE (acumulativo):\n      Erosao, Dilatacao, Abertura (erosao+dilatacao), Fechamento (dilatacao+erosao)\n  - 'Restaurar' volta a imagem binaria recem-limiarizada.\n\nO elemento estruturante e um quadrado (2r+1) com raio configuravel.\n\nEsquerda: imagem em tons de cinza (com ruido). Direita: imagem binaria atual.",
+    "thumb": "thumbs/morphology.png"
+  },
+  {
+    "name": "nonlinear_filters",
+    "title": "Filtros nao-lineares (e ruido).",
+    "description": "Filtros nao-lineares (e ruido).\n\nMostra a imagem de ENTRADA (opcionalmente com ruido) a esquerda e o RESULTADO\ndo filtro a direita. Todo o processamento e em CPU (numpy), pois filtros como\nmediana e bilateral nao se expressam como uma convolucao linear.\n\nRuido (adicionado a imagem original):\n  - sal e pimenta : fracao 'intensidade' dos pixels vira 0 ou 1\n  - gaussiano     : ruido normal de desvio 'intensidade'\n\nFiltros:\n  - mediana            : mediana da vizinhanca (otimo p/ sal e pimenta)\n  - bilateral          : media ponderada por proximidade espacial E de cor\n                         (suaviza preservando bordas)\n  - gaussiano (linear) : para comparar (borra ruido E bordas)\n  - media (box)        : media simples da vizinhanca\n  - minimo / maximo    : erosao / dilatacao (morfologia em tons de cinza)\n  - Kuwahara           : media da sub-regiao de menor variancia (preserva bordas)\n\nInterface: GuiBlock MESTRE (imagem, ruido, intensidade, algoritmo) e um\nGuiBlock de parametros por filtro (visibilidade alternada via display).",
+    "thumb": "thumbs/nonlinear_filters.png"
+  },
+  {
+    "name": "nurbs_curve",
+    "title": "nurbs_curve",
+    "description": "",
+    "thumb": "thumbs/nurbs_curve.png"
+  },
+  {
+    "name": "nurbs_surface",
+    "title": "Superfície NURBS de produto tensorial — graus, dimensões e nós ajustáveis via GUI.",
+    "description": "Superfície NURBS de produto tensorial — graus, dimensões e nós ajustáveis via GUI.\n\n  GUI esquerda (U / V)  → grau, nº de pontos de controle, vetor de nós\n  Slider de peso (dir.) → peso w do ponto selecionado\n  Arrastar esfera       → mover ponto de controle no plano da tela\n  Arrastar área vazia   → orbitar / zoom (orbitControl)\n  R                     → zerar alturas e repor pesos em 1",
+    "thumb": "thumbs/nurbs_surface.png"
+  },
+  {
+    "name": "raymarching_cubemap_r_refract",
+    "title": "raymarching_cubemap_r_refract",
+    "description": "",
+    "thumb": "thumbs/raymarching_cubemap_r_refract.png"
+  },
+  {
+    "name": "resampling",
+    "title": "Reamostragem (resampling) — ilustra a interpolacao usada para redimensionar.",
+    "description": "Reamostragem (resampling) — ilustra a interpolacao usada para redimensionar.\n\n  UPSAMPLING (ampliar):  vizinho mais proximo | bilinear | bicubica\n  DOWNSAMPLING (reduzir): original | sem pre-filtro (aliasing) | com pre-filtro\n\nAs imagens de teste sao sinteticas, em preto e branco, geradas analiticamente\nnum shader (zone plate, estrela de Siemens, xadrez, chirp). Como a fonte e\n\"limpa\" (band-limited), os artefatos que aparecem vem apenas da reamostragem.\n\nToda a reamostragem e feita em shaders (pattern.glsl e resample.glsl).",
+    "thumb": "thumbs/resampling.png"
+  },
+  {
+    "name": "subdivision_curves",
+    "title": "Interactive demonstration of two classes of subdivision curves: 4-point and Lane-Riesenfeld.",
+    "description": "Interactive demonstration of two classes of subdivision curves: 4-point and Lane-Riesenfeld.\nDrag control points to adjust curve.\nClick and drag to add another control point.",
+    "thumb": "thumbs/subdivision_curves.png"
+  },
+  {
+    "name": "subdivision_surfaces",
+    "title": "Superfície de subdivisão de produto tensorial — Lane-Riesenfeld e 4-pontos.",
+    "description": "Superfície de subdivisão de produto tensorial — Lane-Riesenfeld e 4-pontos.\n\n  GUI (esq.)              → algoritmo, dimensões, recursões, parâmetros\n  Arrastar esfera         → mover ponto de controlo no plano da tela\n  Arrastar área vazia     → orbitar / zoom (orbitControl)\n  R                       → zerar todas as alturas",
+    "thumb": "thumbs/subdivision_surfaces.png"
+  },
+  {
+    "name": "sweep_modeling",
+    "title": "Modelagem por varredura (sweep) sobre a estrutura half-edge.",
+    "description": "Modelagem por varredura (sweep) sobre a estrutura half-edge.\n\nUma curva 2D — o *perfil* (vermelho) — é varrida ao longo de uma *trajetória*\n(verde), gerando uma malha 3D:\n\n  • Extrusão linear — perfil fechado deslocado ao longo de uma reta;\n  • Revolução       — silhueta girada em torno do eixo y;\n  • Lofting         — interpolação entre dois perfis ao longo da reta.\n\n  GUI (esq.)\n    tipo            → esquema de varredura\n    perfil / alvo   → seção (extrusão) ou seções inicial→final (lofting)\n    silhueta        → perfil da revolução\n    seções          → discretização da varredura (mais = mais liso)\n    torção          → giro acumulado ao longo da reta (extrusão / lofting)\n    varredura       → extensão da varredura: % do comprimento ou do ângulo\n    faces/arame/curvas/suave → exibição\n  Arrastar          → orbit_control (orbitar / zoom)\n\nA malha resultante é uma DCEL (half-edge); as faces e o aramado são lidos por\nseus circuladores e enviados a buffers de GPU via build_geometry.",
+    "thumb": "thumbs/sweep_modeling.png"
+  },
+  {
+    "name": "tetrahedral_tiling",
+    "title": "Decomposição do espaço em tetraedros — quatro alternativas.",
+    "description": "Decomposição do espaço em tetraedros — quatro alternativas.\n\nComo dividir uma malha cúbica em tetraedros? O «select» da GUI alterna entre\nquatro respostas clássicas, cada uma com o seu compromisso:\n\n  6 tetraedros (Kuhn)   Divisão simples em torno de uma diagonal. Os 6 tets\n                        são orthoschemes (arestas 1, √2, √3) — irregulares,\n                        mas fáceis de gerar e consistentes entre cubos. É a\n                        base da poligonização «marching tetrahedra».\n\n  5 tetraedros          1 tet central regular (arestas √2, ótimo) + 4 de canto\n                        irregulares. Para encaixar, cubos vizinhos têm de ser\n                        espelhados → com «repetições = 2» vê-se o xadrez de\n                        variantes A/B. O central regular aparece a dourado.\n\n  24 — Lattice BCC      Adiciona-se um ponto no centro do cubo e liga-se aos\n                        centros e arestas das 6 faces: 24 tets congruentes por\n                        cubo, malha perfeitamente periódica. A escolha dominante\n                        na prática (boa condição numérica em qualquer resolução).\n\n  Sommerville           A joia teórica: um único tetraedro (disfenoide) que\n                        preenche o espaço sozinho, sem espelhamento — só\n                        rotações e translações. Emerge da decomposição BCC\n                        (favo de Delaunay). Arestas s, s e quatro s·√3/2.\n\n  faces / arestas       O que desenhar.\n  opacidade             Transparência das faces — semitransparentes para ver\n                        o interior.\n  explodir              Vista explodida: afasta cada tet do centro, revelando\n                        os detalhes internos da decomposição.\n  repetições            1 ou 2 cubos por eixo (mostra a periodicidade / o\n                        espelhamento).\n  girar                 Rotação automática lenta (combina com arrastar/órbita).\n\n  Arrastar              orbit_control (orbitar / zoom).\n  s / S                 guarda PNG.",
+    "thumb": "thumbs/tetrahedral_tiling.png"
+  }
+]

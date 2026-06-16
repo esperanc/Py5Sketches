@@ -116,7 +116,8 @@ def preload():
     global vert_src, dither_src, images
     vert_src = loadStrings("vert.glsl")
     dither_src = loadStrings("dither.glsl")
-    images = {name: loadImage(f) for name, f in image_files.items()}
+    # Imagens carregadas da pasta image_convolution (sem copias locais).
+    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
 
 
 def _join(lines):

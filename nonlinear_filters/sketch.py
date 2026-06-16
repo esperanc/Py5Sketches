@@ -40,7 +40,8 @@ filters = ["mediana", "bilateral", "gaussiano (linear)", "media (box)",
 
 def preload():
     global images
-    images = {name: loadImage(f) for name, f in image_files.items()}
+    # Imagens carregadas da pasta image_convolution (sem copias locais).
+    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
 
 
 def make_image(arr):
