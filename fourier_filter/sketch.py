@@ -1,5 +1,5 @@
 """
-Filtragem no dominio da frequencia (Fourier).
+Filtragem no domínio da frequência (Fourier).
 
 Mostra, lado a lado:
   - esquerda : imagem original (intensidade)
@@ -96,7 +96,8 @@ def make_synthetic(name):
 def preload():
     global images
     # Imagens carregadas da pasta image_convolution (sem copias locais).
-    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
+    prefix = "https://esperanc.github.io/Py5Sketches/image_convolution/"
+    images = {name: loadImage(prefix + f) for name, f in image_files.items()}
 
 
 def make_image(rgb):

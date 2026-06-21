@@ -1,7 +1,7 @@
 """
-Filtros nao-lineares (e ruido).
+Filtros não-lineares (e ruído).
 
-Mostra a imagem de ENTRADA (opcionalmente com ruido) a esquerda e o RESULTADO
+Mostra a imagem de ENTRADA (opcionalmente com ruído) a esquerda e o RESULTADO
 do filtro a direita. Todo o processamento e em CPU (numpy), pois filtros como
 mediana e bilateral nao se expressam como uma convolucao linear.
 
@@ -41,7 +41,8 @@ filters = ["mediana", "bilateral", "gaussiano (linear)", "media (box)",
 def preload():
     global images
     # Imagens carregadas da pasta image_convolution (sem copias locais).
-    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
+    prefix = "https://esperanc.github.io/Py5Sketches/image_convolution/"
+    images = {name: loadImage(prefix + f) for name, f in image_files.items()}
 
 
 def make_image(arr):

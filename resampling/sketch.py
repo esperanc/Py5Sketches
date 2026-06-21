@@ -1,5 +1,5 @@
 """
-Reamostragem (resampling) — ilustra a interpolacao usada para redimensionar.
+Reamostragem (resampling) — ilustra interpolação usada para redimensionar.
 
   UPSAMPLING (ampliar):  vizinho mais proximo | bilinear | bicubica
   DOWNSAMPLING (reduzir): original | sem pre-filtro (aliasing) | com pre-filtro

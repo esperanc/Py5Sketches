@@ -1,5 +1,5 @@
 """
-Superfície Bézier de produto tensorial — graus ajustáveis via GUI.
+Superfície Bézier de produto tensorial.
 Renderização via subdivisão de de Casteljau.
 
   Arrastar esfera (ponto de controle) → mover no eixo Y

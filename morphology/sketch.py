@@ -1,5 +1,5 @@
 """
-Limiarizacao (threshold) + operacoes morfologicas.
+Limiarização (threshold) + operações morfológicas.
 
   - Um slider 'limiar' separa a imagem (em tons de cinza) em duas classes.
   - 'ruido' adiciona ruido branco antes da limiarizacao (gera respingos).
@@ -47,8 +47,9 @@ def make_shapes():
 def preload():
     global images
     # Imagens carregadas da pasta image_convolution (sem copias locais).
-    images = {"cameraman": loadImage("../image_convolution/cameraman.bmp"),
-              "lenna": loadImage("../image_convolution/lenna.bmp")}
+    prefix = "https://esperanc.github.io/Py5Sketches/image_convolution/"
+    images = {"cameraman": loadImage(prefix + "cameraman.bmp"),
+              "lenna": loadImage(prefix + "lenna.bmp")}
 
 
 LUMA = np.array([0.2126, 0.7152, 0.0722])

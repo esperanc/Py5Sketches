@@ -117,7 +117,8 @@ def preload():
     vert_src = loadStrings("vert.glsl")
     dither_src = loadStrings("dither.glsl")
     # Imagens carregadas da pasta image_convolution (sem copias locais).
-    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
+    prefix = "https://esperanc.github.io/Py5Sketches/image_convolution/"
+    images = {name: loadImage(prefix + f) for name, f in image_files.items()}
 
 
 def _join(lines):

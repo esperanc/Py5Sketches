@@ -1,7 +1,7 @@
 """
 Marching tetrahedra — extração de iso-superfícies de campos implícitos.
 
-Escolhe-se um campo escalar f(x,y,z) num «select» e a iso-superfície f = nível
+Escolhe-se um campo escalar f(x,y,z) num select e a iso-superfície f = nível
 é poligonizada, dividindo cada célula da grade de amostragem em 6 tetraedros
 (variante simplicial, sem ambiguidades, do marching cubes).
 

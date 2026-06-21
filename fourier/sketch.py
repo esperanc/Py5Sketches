@@ -1,5 +1,5 @@
 """
-Transformada de Fourier 2D — visualizacao didatica.
+Transformada de Fourier 2D — visualizacao didática.
 
 Um painel escolhe a imagem de teste (padroes sinteticos ou fotos reais). A FFT
 2D e mostrada em dois graficos: MAGNITUDE (escala log) e FASE. Ao lado, a
@@ -118,7 +118,8 @@ def make_synthetic(name):
 def preload():
     global images
     # Imagens carregadas da pasta image_convolution (sem copias locais).
-    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
+    prefix = "https://esperanc.github.io/Py5Sketches/image_convolution/"
+    images = {name: loadImage(prefix + f) for name, f in image_files.items()}
 
 
 def make_image(rgb):

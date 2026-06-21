@@ -1,0 +1,162 @@
+precision highp float;
+
+uniform vec2 iResolution;
+uniform float iTime;
+uniform vec4 iMouse;
+uniform samplerCube uCubemap; // cubemap texture
+uniform vec3 rblend; // Reflection color blending
+
+const int MAX_MARCHING_STEPS = 255;
+const float MAX_DIST = 100.0;
+const float EPSILON = 0.0001;
+
+const vec3 defEye = vec3(0,0, 5); // Default eye position
+const vec3 center = vec3(0., 0., 0.); // Center of scene
+const vec3 up = vec3 (0., 1., 0.); // World up vector
+const float flen = 1.0;   // Focus (dist from proj plane to eye)
+
+mat2 rot2d (float angle) {
+    float c = cos(angle), s=sin(angle);
+    return mat2(c, -s, s, c);
+}
+
+vec3 getEye () {
+    vec2 m = iMouse.xy/iResolution.xy*2.-1.; // range [-1,1]
+    vec3 eye = defEye;
+    eye.yz *= rot2d(-m.y*3.1416/2.);
+    eye.xz *= rot2d(m.x*3.1416);
+    return eye;
+}
+
+float sphereSDF(vec3 p, float r) {
+    return length(p) - r;
+}
+
+float blockSDF(vec3 p, vec3 sz) {
+  vec3 q = abs(p) - sz;
+  return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
+}
+
+vec3 opRotZ (vec3 p, float ang) {
+    p.xy *= rot2d(-ang);
+    return p;
+}
+
+vec3 opRotY (vec3 p, float ang) {
+    p.xz *= rot2d(-ang);
+    return p;
+}
+
+vec3 opTranslate (vec3 p, vec3 d) {
+    return p - d;
+}
+
+vec3 opSymX (vec3 p) {
+    p.x = abs(p.x);
+    return p;
+}
+
+vec3 opSymY (vec3 p) {
+    p.y = abs(p.y);
+    return p;
+}
+
+float sceneSDF(vec3 p) {
+    float ang = iTime*3.14/10.;
+    float ball = sphereSDF(p-vec3(-1.,0,0),0.8);
+    float block = blockSDF(opRotY(p-vec3(1.,0,0),ang), vec3(0.6));
+    return min(ball,block);
+}
+
+vec3 sceneMat (vec3 p) {
+    float ang = iTime*3.14/10.;
+    float ball = sphereSDF(p-vec3(-1.,0,0),0.8);
+    float block = blockSDF(opRotY(p-vec3(1.,0,0),ang), vec3(0.6));
+    float d = min(ball,block);
+    if (d == ball) return vec3(1,1,0);
+    return vec3(0,1,1);
+}
+
+vec3 normal(vec3 p) {
+    float d = sceneSDF(p);
+    vec2 e = vec2(0., 0.01);
+    return normalize(vec3(d)-
+                    vec3(sceneSDF(p-e.yxx),
+                         sceneSDF(p-e.xyx),
+                         sceneSDF(p-e.xxy)));
+}
+
+const vec3 lightPos = vec3(10);  // Light position
+const vec3 lightColor = vec3 (1); // Light color
+//const vec3 matColor = vec3 (1,0,0); // material Color
+const float matDiff = 0.8; // Diffuse coefficient
+const float matAmb = 0.2; // Ambient coefficient
+const float matSpec = 0.5; // Specular coefficient
+const float matShine = 40.0; // Shininess power
+
+vec3 lighting (vec3 eye, inout vec3 p, out vec3 R) {
+    vec3 n = normal(p);
+    vec3 l = normalize(lightPos - p);
+    vec3 e = normalize(eye - p);
+    vec3 matColor = sceneMat(p);
+    vec3 ia = matAmb * lightColor * matColor;
+    vec3 id = matDiff * max(0.,dot(l, n)) * lightColor * matColor;
+    vec3 r = reflect(-l,n);
+    vec3 is = matSpec * pow(max(0., dot(e,r)),matShine) * lightColor;
+    R = reflect(-e,n); // Bounce direction
+    p += n*5.*EPSILON;  // Bounce point
+    return (ia+id+is);
+}
+
+float rayMarch (vec3 eye, vec3 dir) {
+  float depth = 0.;
+  for (int i = 0; i < MAX_MARCHING_STEPS; i++) {
+    float dist = sceneSDF(eye + depth * dir);
+    if (dist < EPSILON) return depth;
+    depth += dist;
+    if (depth >= MAX_DIST) return MAX_DIST;
+  }
+  return MAX_DIST;
+}
+
+vec3 rayDirection(vec3 eye, vec2 fragCoord) {
+    
+  vec2 uv = fragCoord.xy / iResolution.xy - 0.5 ; // Normalized coordinates
+  uv.x *= iResolution.x / iResolution.y; // Aspect ratio
+
+  vec3 Z = normalize(eye-center); // Vector center-eye
+  vec3 X = normalize(cross(up,Z));  // Vector to right of proj plane
+  vec3 Y = normalize(cross(Z,X));  // Vector to top of proj plane
+  vec3 C = eye - flen*Z; // Center of projection plane
+  vec3 P = C + X*uv.x + Y*uv.y; // Point on proj plane
+  return normalize (P - eye);
+}
+
+vec3 render (inout vec3 eye, inout vec3 dir, out float delta) {
+  float dist = rayMarch(eye, dir);
+  if (dist > MAX_DIST-EPSILON) {
+     delta = 0.;
+     return textureCube(uCubemap, dir*vec3(-1,1,1)).rgb; 
+  }
+  vec3 p = eye+dist*dir;
+  vec3 R;
+  vec3 color = lighting(eye, p, dir);
+  eye = p; 
+  delta = 0.8;
+  return color;
+}
+
+void main( )
+{
+    vec3 eye = getEye();
+    vec3 dir = rayDirection(eye, gl_FragCoord.xy);
+    float delta;
+    float alpha = 1.;
+    vec3 color = render(eye,dir, delta);
+    // bounces
+    for (int i = 0; i < 5; i++) {
+      alpha *=delta;
+      color = mix(color,render(eye,dir,delta),alpha);
+    }
+    gl_FragColor = vec4(color, 1.);
+}

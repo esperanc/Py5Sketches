@@ -1,3 +1,6 @@
+"""
+Recursive Raymarching with multiple objects, refractions and reflections, with a cubemap as environment.
+"""
 def preload():
     global my_shader
     my_shader = loadShader(
@@ -9,7 +12,9 @@ def preload():
     	'posy.jpg', 'negy.jpg', 
     	'posz.jpg', 'negz.jpg'
     ]
-    cubemapImages = [loadImage(url) for url in urls]
+
+    prefix = "../raymarching_cubemap/"
+    cubemapImages = [loadImage(prefix+url) for url in urls]
 
 def mousePressed():
     global mouseStart 

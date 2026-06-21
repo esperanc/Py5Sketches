@@ -1,5 +1,6 @@
 """
-Demonstrates the application of 3x3 convolution kernels on assorted images.
+Mostra a aplicação de filtros de convolução 3x3 em imagens variadas.
+
 Disclaimer: All images were downloaded from 
 https://www.hlevkin.com/hlevkin/TestImages/
 """

@@ -38,7 +38,8 @@ LUMA = np.array([0.2126, 0.7152, 0.0722])
 def preload():
     global images
     # Imagens carregadas da pasta image_convolution (sem copias locais).
-    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
+    prefix = "https://esperanc.github.io/Py5Sketches/image_convolution/"
+    images = {name: loadImage(prefix + f) for name, f in image_files.items()}
 
 
 def setup():

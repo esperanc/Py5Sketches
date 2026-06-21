@@ -1,6 +1,6 @@
 """
-Image filters — variacao do image_convolution focada em operacoes COMPOSTAS,
-que exigem varias passadas (ping-pong de framebuffers na GPU).
+Image filters — varição do image_convolution focada em operacoes COMPOSTAS,
+que exigem varias passadas.
 
 O shader filter.glsl implementa uma operacao por passada (COPY, GRAY, CONV3,
 BLUR1D, GRADMAG, NMS, THRESH, HYST, FINALIZE, COMBINE). Aqui em Python cada
@@ -45,7 +45,8 @@ def preload():
     vert_src = loadStrings("vert.glsl")
     filter_src = loadStrings("filter.glsl")
     # Imagens carregadas da pasta image_convolution (sem copias locais).
-    images = {name: loadImage("../image_convolution/" + f) for name, f in image_files.items()}
+    prefix = "https://esperanc.github.io/Py5Sketches/image_convolution/"
+    images = {name: loadImage(prefix + f) for name, f in image_files.items()}
 
 
 def _join(lines):

@@ -1,3 +1,6 @@
+"""
+Demo de curvas NURBS.
+"""
 from gui import GuiBlock
 
 def cox_de_boor(i, d, t, knots):

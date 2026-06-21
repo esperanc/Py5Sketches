@@ -1,7 +1,8 @@
 """
-Interactive demonstration of two classes of subdivision curves: 4-point and Lane-Riesenfeld.
-Drag control points to adjust curve.
-Click and drag to add another control point.
+Demonstração de curvas de subdivisão: 4-point e Lane-Riesenfeld.
+
+Arrastar pontos de controle para ajustar curva.
+Clicar e arrastar para adicionar outro ponto de controle.
 """
 
 from smooth_curves import lr, four_point
