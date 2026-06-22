@@ -1,9 +1,38 @@
 [
   {
+    "name": "2d_box_sdf",
+    "title": "2D Box sdf.",
+    "description": "2D Box sdf.",
+    "thumb": "thumbs/2d_box_sdf.png",
+    "files": [
+      "frag.glsl",
+      "sketch.py",
+      "vert.glsl"
+    ]
+  },
+  {
+    "name": "3d_primitive_demo",
+    "title": "3D primitives demo.",
+    "description": "3D primitives demo.",
+    "thumb": "thumbs/3d_primitive_demo.png",
+    "files": [
+      "sketch.py"
+    ]
+  },
+  {
     "name": "adjustable_terrain",
     "title": "Malha 3D interativa — N×M vértices em WEBGL.",
     "description": "Malha 3D interativa — N×M vértices em WEBGL.\n\n  Arrastar esfera (vértice)  →  mover para cima/baixo (eixo Y mundial)\n  Arrastar área vazia        →  orbitar / zoom com orbitControl\n  +  /  -                    →  aumentar / reduzir resolução (passo 2)\n  R                          →  zerar todas as alturas\n  S                          →  suavizar um passo (Laplaciano)\n  W                          →  alternar sólido / arame\n  F                          →  alternar normais suaves / planas",
     "thumb": "thumbs/adjustable_terrain.png",
+    "files": [
+      "sketch.py"
+    ]
+  },
+  {
+    "name": "ball_cluster",
+    "title": "Ball cluster with OrbitControl.",
+    "description": "Ball cluster with OrbitControl.",
+    "thumb": "thumbs/ball_cluster.png",
     "files": [
       "sketch.py"
     ]
@@ -61,12 +90,34 @@
     ]
   },
   {
+    "name": "bumpmap",
+    "title": "Demo de bumpmap com shaders.",
+    "description": "Demo de bumpmap com shaders.",
+    "thumb": "thumbs/bumpmap.png",
+    "files": [
+      "earth.jpg",
+      "frag.glsl",
+      "sketch.py",
+      "vert.glsl"
+    ]
+  },
+  {
     "name": "catmull_rom_curve",
     "title": "Splines de Catmull-Rom interativas com parâmetro de tensão.",
     "description": "Splines de Catmull-Rom interativas com parâmetro de tensão.\n \nClique em área vazia para adicionar um ponto.\nArraste pontos para movê-los.\nDelete / X / D  : remover ponto selecionado\nV               : alternar variante uniforme / centripetal\nT / t           : aumentar / diminuir tensão global (passo 0.1)",
     "thumb": "thumbs/catmull_rom_curve.png",
     "files": [
       "gui.py",
+      "sketch.py"
+    ]
+  },
+  {
+    "name": "coord_frame",
+    "title": "Interactive coordinate system demo.",
+    "description": "Interactive coordinate system demo.\n\nClick and drag points / arrow heads.\nClick coordinate frame to toggle coordinate systems.",
+    "thumb": "thumbs/coord_frame.png",
+    "files": [
+      "frame.py",
       "sketch.py"
     ]
   },
@@ -110,6 +161,17 @@
       "dither.glsl",
       "gui.py",
       "requirements.txt",
+      "sketch.py",
+      "vert.glsl"
+    ]
+  },
+  {
+    "name": "drawing_with_frag_shader",
+    "title": "Shape drawing in the fragment shader.",
+    "description": "Shape drawing in the fragment shader.",
+    "thumb": "thumbs/drawing_with_frag_shader.png",
+    "files": [
+      "frag.glsl",
       "sketch.py",
       "vert.glsl"
     ]
@@ -175,6 +237,16 @@
     "files": [
       "gui.py",
       "requirements.txt",
+      "sketch.py"
+    ]
+  },
+  {
+    "name": "ilumination_demo",
+    "title": "Demo Phong illumination model.",
+    "description": "Demo Phong illumination model.",
+    "thumb": "thumbs/ilumination_demo.png",
+    "files": [
+      "gui.py",
       "sketch.py"
     ]
   },
@@ -260,6 +332,24 @@
       "gui.py",
       "requirements.txt",
       "sketch.py"
+    ]
+  },
+  {
+    "name": "noise_pattern",
+    "title": "Several interesting noise / pattern shaders collected from https://thebookofshaders.com and https://shadertoy.com Credits for each shader are given in each .glsl file.",
+    "description": "Several interesting noise / pattern shaders collected\nfrom https://thebookofshaders.com and https://shadertoy.com\nCredits for each shader are given in each .glsl file.",
+    "thumb": "thumbs/noise_pattern.png",
+    "files": [
+      "crackmarble.glsl",
+      "fbm.glsl",
+      "gui.py",
+      "simplex.glsl",
+      "sketch.py",
+      "truchet.glsl",
+      "vert.glsl",
+      "voronoi.glsl",
+      "warp.glsl",
+      "worley.glsl"
     ]
   },
   {
@@ -524,6 +614,28 @@
     ]
   },
   {
+    "name": "simple_shader",
+    "title": "Minimal shader example in p5",
+    "description": "Minimal shader example in p5",
+    "thumb": "thumbs/simple_shader.png",
+    "files": [
+      "frag_shader.glsl",
+      "sketch.py",
+      "vertex_shader.glsl"
+    ]
+  },
+  {
+    "name": "simple_shader_uniform",
+    "title": "Simple shader with uniform passing.",
+    "description": "Simple shader with uniform passing.",
+    "thumb": "thumbs/simple_shader_uniform.png",
+    "files": [
+      "frag.glsl",
+      "sketch.py",
+      "vert.glsl"
+    ]
+  },
+  {
     "name": "subdivision_curves",
     "title": "Demonstração de curvas de subdivisão: 4-point e Lane-Riesenfeld.",
     "description": "Demonstração de curvas de subdivisão: 4-point e Lane-Riesenfeld.\n\nArrastar pontos de controle para ajustar curva.\nClicar e arrastar para adicionar outro ponto de controle.",
@@ -567,6 +679,76 @@
       "gui.py",
       "sketch.py",
       "tetra.py"
+    ]
+  },
+  {
+    "name": "tex_shader",
+    "title": "Cross-fading demo using textures and shaders.",
+    "description": "Cross-fading demo using textures and shaders.",
+    "thumb": "thumbs/tex_shader.png",
+    "files": [
+      "frag.glsl",
+      "icon (29).png",
+      "nongrid (74).png",
+      "sketch.py",
+      "vert.glsl"
+    ]
+  },
+  {
+    "name": "texture_filter",
+    "title": "Texture filtering demo.",
+    "description": "Texture filtering demo.",
+    "thumb": "thumbs/texture_filter.png",
+    "files": [
+      "sketch.py"
+    ]
+  },
+  {
+    "name": "textured_cube",
+    "title": "Exemplo de cubo texturado com p5.",
+    "description": "Exemplo de cubo texturado com p5.",
+    "thumb": "thumbs/textured_cube.png",
+    "files": [
+      "sketch.py"
+    ]
+  },
+  {
+    "name": "textured_globe",
+    "title": "Demo: Texture coordinates in shaders.",
+    "description": "Demo: Texture coordinates in shaders.",
+    "thumb": "thumbs/textured_globe.png",
+    "files": [
+      "earth.jpg",
+      "frag.glsl",
+      "sketch.py",
+      "vert.glsl"
+    ]
+  },
+  {
+    "name": "textured_quad_strip",
+    "title": "Demo de como passar coordenadas de textura com 'vertex()'",
+    "description": "Demo de como passar coordenadas de textura com 'vertex()'",
+    "thumb": "thumbs/textured_quad_strip.png",
+    "files": [
+      "sketch.py"
+    ]
+  },
+  {
+    "name": "textured_wrap_mode",
+    "title": "Demo de modos de \"wrap\" para coordenadas de textura.",
+    "description": "Demo de modos de \"wrap\" para coordenadas de textura.",
+    "thumb": "thumbs/textured_wrap_mode.png",
+    "files": [
+      "sketch.py"
+    ]
+  },
+  {
+    "name": "transform_demo",
+    "title": "Step-by-step transformation demo.",
+    "description": "Step-by-step transformation demo.",
+    "thumb": "thumbs/transform_demo.png",
+    "files": [
+      "sketch.py"
     ]
   }
 ]

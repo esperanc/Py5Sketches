@@ -46,6 +46,7 @@ body { margin:0; background:#141414; color:#e8e8e8;
 .ph { display:flex; align-items:center; justify-content:center; color:#555;
       font-size:13px; }
 .card h3 { margin:10px 12px 4px; font-size:15px; }
+h1 a { color: #aaa; }
 .name { margin:0 12px 8px; color:#5aa77f; font-size:11px; font-family:monospace; }
 .empty { padding:22px; color:#777; }
 """
@@ -70,7 +71,9 @@ def setup():
     root.addClass("galroot")
 
     header = create_div(
-        "<h1>Py5Sketches</h1>"
+        "<h1>Sketches em "
+        "<a href='https://github.com/esperanc/Py5Script'>Py5Script</a>"
+        " do <a href='https://esperanc.github.io/CompVis2026'>curso de Computação Visual</a></h1>"
         f"<p>{len(entries)} sketches — clique para abrir (nova aba) "
         "ou baixe o .zip para a IDE</p>")
     header.addClass("header")
